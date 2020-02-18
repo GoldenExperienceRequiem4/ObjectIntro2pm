@@ -27,12 +27,14 @@ public class Customer {
         }
 
         public BankAccount closeAccount(int accountID){
+        BankAccount accountToClose = null;
             for (var account : accounts){
                 if(account.getAccountID() ==accountID){
-                    //we found it!!
+                    accountToClose = account;
                 }
             }
-            return null;
+            accounts.remove(accountToClose);
+            return accountToClose;
         }
 
 }
