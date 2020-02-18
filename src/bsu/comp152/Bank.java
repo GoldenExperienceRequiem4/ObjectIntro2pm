@@ -1,6 +1,7 @@
 package bsu.comp152;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Bank {
@@ -23,7 +24,7 @@ public class Bank {
     }
 
     private void addCustomer(Scanner passedInputReader){
-        passedInputReader.nextLine();//there is a trailing '\' left over on input
+        passedInputReader.nextLine();//there is a trailing '\n' left over on input
         System.out.print("Enter new customer's nme:");
         var name = passedInputReader.nextLine();
         System.out.print("Enter the customer's Tax ID:");
@@ -33,6 +34,15 @@ public class Bank {
         System.out.println("Created new currently selected customer with name "+
                 currentlySelectedCustomer.getName() + " and taxId of "+
                 currentlySelectedCustomer.getCustomerID());
+    }
+
+    private Optional<Customer> selectCustomer(int id){
+        for(var customer: allCustomers){
+            if(customer.getCustomerID() == id){
+                return Optional.of(customer);
+            }
+        }
+        return Optional.empty();
     }
 
     public void doBanking(){
@@ -46,7 +56,13 @@ public class Bank {
                     addCustomer(inputReader);
                     break;
                 case 2:
-                    System.out.println("We haven't implemented that yet");
+                    System.out.print("Enter the id of the customer you want to select:");
+                    var customerId = inputReader.nextInt();
+                    var willthiswork = selectCustomer(customerId);
+                    if(willthiswork.isPresent())
+                        System.out.println("Selected customer "+ willthiswork.get().getName());
+                    else
+                        System.out.println("No such Customer");
                     break;
                 case 3:
                     System.out.println("We haven't implemented that yet");
