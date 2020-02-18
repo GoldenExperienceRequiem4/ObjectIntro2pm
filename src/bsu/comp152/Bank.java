@@ -23,14 +23,15 @@ public class Bank {
     }
 
     private void addCustomer(Scanner passedInputReader){
+        passedInputReader.nextLine();//there is a trailing '\' left over on input
         System.out.print("Enter new customer's nme:");
-        var name = passedInputReader.next();
+        var name = passedInputReader.nextLine();
         System.out.print("Enter the customer's Tax ID:");
         var ssn = passedInputReader.nextInt();
         currentlySelectedCustomer = new Customer(name, ssn);
         allCustomers.add(currentlySelectedCustomer);
         System.out.println("Created new currently selected customer with name "+
-                currentlySelectedCustomer.getName() + "and taxId of "+
+                currentlySelectedCustomer.getName() + " and taxId of "+
                 currentlySelectedCustomer.getCustomerID());
     }
 
